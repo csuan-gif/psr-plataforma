@@ -32,6 +32,7 @@ export interface DatosTransicion {
   pruebaSinConducir?: string;
   autorizacionNueva?: string;
   kmSalida?: number | null;
+  nivelCombustibleSalida?: number | null;
   garantiaHasta?: string | null;
   trabajos?: Trabajo[];
 }
@@ -41,7 +42,7 @@ export interface Bloqueo { codigo: CodigoBloqueo; mensaje: string }
 export const MENSAJE_BLOQUEO: Record<CodigoBloqueo, string> = {
   PRESUPUESTO_NO_APROBADO: "El cliente pidió presupuesto previo y todavía no lo ha aprobado. Envía el presupuesto y espera la aprobación (por el portal o registrándola tú con una nota) antes de reparar.",
   PRUEBA_RUTA_NO_AUTORIZADA: "El cliente NO autorizó conducir el vehículo. Registra cómo lo vas a probar sin conducirlo, o la nueva autorización del cliente.",
-  DATOS_ENTREGA: "Para entregar se necesitan el kilometraje de salida (no menor al de ingreso), los trabajos realizados y la fecha de garantía.",
+  DATOS_ENTREGA: "Para entregar se necesitan el kilometraje de salida (no menor al de ingreso), el nivel de combustible, los trabajos realizados y la fecha de garantía.",
   ORDEN_CERRADA: "La orden ya está cerrada. Solo el administrador puede reabrirla.",
 };
 
@@ -63,7 +64,8 @@ export function revisarTransicion(o: OrdenParaReglas, destino: EstadoOrden, d: D
     return b("PRUEBA_RUTA_NO_AUTORIZADA");
   if (destino === "entregado") {
     const trabajos = d.trabajos ?? o.trabajos;
-    if (d.kmSalida == null || d.kmSalida < (o.kmIngreso ?? 0) || !d.garantiaHasta || d.garantiaHasta < opts.hoy || !trabajos.length) return b("DATOS_ENTREGA");
+    const nivel = d.nivelCombustibleSalida;
+    if (d.kmSalida == null || d.kmSalida < (o.kmIngreso ?? 0) || nivel == null || nivel < 0 || nivel > 1 || Math.round(nivel * 8) !== nivel * 8 || !d.garantiaHasta || d.garantiaHasta < opts.hoy || !trabajos.length) return b("DATOS_ENTREGA");
   }
   return null;
 }

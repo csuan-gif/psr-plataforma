@@ -57,7 +57,7 @@ Necesitas un correo y unos 45 minutos. Todo es gratis.
 ### Paso 2 · Crear las tablas y la seguridad
 1. En el menú izquierdo abre **SQL Editor** → **New query**.
 2. Abre en tu computador la carpeta `supabase/migrations/`. Copia el contenido del **primer** archivo (`…000100_esquema.sql`), pégalo y toca **Run**. Debe decir *Success*.
-3. Repite **en orden** con los 8 archivos, del `000100` al `000800`.
+3. Repite **en orden** con los 9 archivos, del `000100` al `000900`.
 4. Por último, ejecuta igual el archivo `supabase/seed.sql`. Carga el catálogo de síntomas, las reglas del semáforo, los horarios, los festivos y 5 clientes **ficticios** de ejemplo.
 
 > Si algún archivo da error, no sigas: copia el mensaje y pide ayuda. No ejecutes un archivo dos veces.
@@ -67,7 +67,7 @@ Necesitas un correo y unos 45 minutos. Todo es gratis.
 
 ### Paso 3 · Ajustes de seguridad del proyecto
 1. **Authentication → Sign In / Providers → Email:** deja **activo** el ingreso con correo y **desactiva "Allow new users to sign up"**. Así solo el taller crea las cuentas.
-2. **Realtime → Settings:** deja **activos los canales privados**. Si existe la opción de solo canales privados, puedes activarla. Esto permite que el taller vea quién está mirando cada solicitud.
+2. **Realtime → Settings:** deja **encendidos** *Enable Realtime service* y *Allow public access to channels*. La bandeja en vivo usa un canal público, pero solo recibe lo que las reglas de seguridad (RLS) permiten ver a cada usuario del taller. El canal de «quién está mirando» ya es privado.
 
 ### Paso 4 · Crear el usuario de Javier
 1. **Authentication → Users → Add user → Create new user.** Escribe el correo y una contraseña segura de Javier, y marca **Auto Confirm User**.

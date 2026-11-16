@@ -254,7 +254,7 @@ export const apiTallerSupabase: ApiTaller = {
   async ordenes() {
     const limite = new Date(Date.now() - 14 * 86400000).toISOString();
     const { data, error } = await supabase.from("ordenes_trabajo")
-      .select("*, tecnico:perfiles(id, nombre), recepcion:recepciones(id, solicitud_id, km_ingreso, autoriza_presupuesto_previo, autoriza_prueba_ruta, solicitud:solicitudes(codigo_seguimiento, triage:triage_interno(semaforo_final)), vehiculo:vehiculos(id, placa, marca, linea_modelo, cliente:clientes(nombre_razon_social, celular)))")
+      .select("*, tecnico:perfiles(id, nombre), recepcion:recepciones(id, solicitud_id, km_ingreso, nivel_combustible, autoriza_presupuesto_previo, autoriza_prueba_ruta, solicitud:solicitudes(codigo_seguimiento, triage:triage_interno(semaforo_final)), vehiculo:vehiculos(id, placa, marca, linea_modelo, cliente:clientes(nombre_razon_social, celular)))")
       .or(`estado.not.in.(entregado,cancelado),fecha_entrega.gte.${limite}`)
       .order("creado_en");
     if (error) fallar(error);
@@ -267,6 +267,8 @@ export const apiTallerSupabase: ApiTaller = {
         presupuesto: { total: o.presupuesto_total, estado: o.presupuesto_estado, enviadoEn: o.presupuesto_enviado_en, aprobadoPor: o.presupuesto_aprobado_por },
         autorizaPresupuestoPrevio: r.autoriza_presupuesto_previo, autorizaPruebaRuta: r.autoriza_prueba_ruta, kmIngreso: r.km_ingreso,
         kmSalida: o.km_salida, garantiaHasta: o.garantia_hasta, fechaEntrega: o.fecha_entrega,
+        nivelCombustibleIngreso: r.nivel_combustible == null ? null : Number(r.nivel_combustible),
+        nivelCombustibleSalida: o.nivel_combustible_salida == null ? null : Number(o.nivel_combustible_salida),
         color: (uno(s?.triage) as Fila | null)?.semaforo_final ?? null,
       };
     });

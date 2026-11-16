@@ -80,7 +80,12 @@ begin
   -- Regla 3: entrega con km, trabajos y garantía.
   begin perform public.cambiar_estado_orden(v_ord, 'entregado', '{"kmSalida":100}'); raise exception 'FALLA: entregó con km menor al de ingreso y sin garantía';
   exception when others then if sqlerrm not like 'DATOS_ENTREGA%' then raise; end if; end;
-  perform public.cambiar_estado_orden(v_ord, 'entregado', jsonb_build_object('kmSalida', 54215, 'garantiaHasta', (now() at time zone 'America/Bogota')::date + 90));
+  begin perform public.cambiar_estado_orden(v_ord, 'entregado', jsonb_build_object('kmSalida', 54215, 'garantiaHasta', (now() at time zone 'America/Bogota')::date + 90)); raise exception 'FALLA: entregó sin nivel de combustible';
+  exception when others then if sqlerrm not like 'DATOS_ENTREGA%' then raise; end if; end;
+  begin perform public.cambiar_estado_orden(v_ord, 'entregado', jsonb_build_object('kmSalida', 54215, 'nivelCombustibleSalida', 0.3, 'garantiaHasta', (now() at time zone 'America/Bogota')::date + 90)); raise exception 'FALLA: aceptó combustible 0.3';
+  exception when others then if sqlerrm not like 'DATOS_ENTREGA%' then raise; end if; end;
+  perform public.cambiar_estado_orden(v_ord, 'entregado', jsonb_build_object('kmSalida', 54215, 'nivelCombustibleSalida', 0.75, 'garantiaHasta', (now() at time zone 'America/Bogota')::date + 90));
+  if (select nivel_combustible_salida from public.ordenes_trabajo where id = v_ord) <> 0.75 then raise exception 'FALLA: no guardó el combustible de salida'; end if;
   select count(*) into n from public.recordatorios r join public.vehiculos v on v.id = r.vehiculo_id where v.placa = 'TUV234' and r.estado = 'pendiente';
   if n <> 1 then raise exception 'FALLA: se esperaban 1 recordatorio (líquido de frenos), hay %', n; end if;
   if (select km_estimado from public.recordatorios r join public.vehiculos v on v.id = r.vehiculo_id where v.placa = 'TUV234') <> 54215 + 40000 then raise exception 'FALLA: km del recordatorio'; end if;

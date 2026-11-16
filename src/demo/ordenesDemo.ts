@@ -19,7 +19,7 @@ export interface ActaDemo {
 export interface OrdenDemo {
   id: string; recepcionId: string; estado: EstadoOrden; tecnicoId: string | null; trabajos: Trabajo[];
   presupuestoTotal: number | null; presupuestoEstado: EstadoPresupuesto; presupuestoEnviadoEn: string | null; presupuestoAprobadoPor: string | null;
-  fechaEntrega: string | null; kmSalida: number | null; garantiaHasta: string | null; creadoEn: string;
+  fechaEntrega: string | null; kmSalida: number | null; nivelCombustibleSalida?: number | null; garantiaHasta: string | null; creadoEn: string;
 }
 export interface HistorialDemo { ordenId: string; estado: string; fecha: string; usuario: string | null; nota: string | null }
 export interface RecordatorioDemo {
@@ -80,7 +80,7 @@ export function cambiarEstadoDemo(b: BaseDemo, ordenId: string, destino: EstadoO
   if (destino === "en_prueba" && !r.autorizaPruebaRuta) nota = notaPrueba(d) ?? null;
   const ahora = new Date().toISOString();
   if (destino === "entregado") {
-    o.kmSalida = d.kmSalida!; o.garantiaHasta = d.garantiaHasta!; o.trabajos = d.trabajos ?? o.trabajos; o.fechaEntrega = ahora;
+    o.kmSalida = d.kmSalida!; o.nivelCombustibleSalida = d.nivelCombustibleSalida!; o.garantiaHasta = d.garantiaHasta!; o.trabajos = d.trabajos ?? o.trabajos; o.fechaEntrega = ahora;
     b.vehiculos.find((v) => v.id === r.vehiculoId)!.km = d.kmSalida!;
   }
   o.estado = destino;

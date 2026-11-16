@@ -3,7 +3,7 @@ import { apiTaller } from "../datos/api";
 import { ErrorTaller, type HistorialOrden, type OrdenTaller, type Usuario } from "../datos/tipos";
 import { usePanel } from "../contexto";
 import { Dialogo } from "../ui";
-import { ESTADOS_ORDEN, NOMBRE_ESTADO, type EstadoOrden, type Trabajo } from "../util/reglasOrden";
+import { ESTADOS_ORDEN, NOMBRE_ESTADO, nombreCombustible, type EstadoOrden, type Trabajo } from "../util/reglasOrden";
 import EditorTrabajos from "./EditorTrabajos";
 import { descargarActa } from "../recepcion/ActaLista";
 import { Boton } from "../../compartido/ui/base";
@@ -137,7 +137,7 @@ export default function DetalleOrden({ orden, onCerrar, pedirEstado, onCambio }:
       )}
 
       {orden.estado === "entregado" && (
-        <p className="mb-4 rounded-xl bg-ok-fondo p-3 text-ok">Entregado {orden.fechaEntrega && haceCuanto(orden.fechaEntrega)} · Km salida {orden.kmSalida?.toLocaleString("es-CO")} · Garantía hasta {orden.garantiaHasta}</p>
+        <p className="mb-4 rounded-xl bg-ok-fondo p-3 text-ok">Entregado {orden.fechaEntrega && haceCuanto(orden.fechaEntrega)} · Km salida {orden.kmSalida?.toLocaleString("es-CO")}{orden.nivelCombustibleSalida != null && ` · Combustible ${nombreCombustible(orden.nivelCombustibleSalida)}`} · Garantía hasta {orden.garantiaHasta}</p>
       )}
 
       <section>

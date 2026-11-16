@@ -32,7 +32,9 @@ describe("Reglas de la orden de trabajo", () => {
     expect(revisarTransicion(o, "entregado", { kmSalida: 49000, garantiaHasta: "2027-02-01" }, op)?.codigo).toBe("DATOS_ENTREGA");
     expect(revisarTransicion(o, "entregado", { kmSalida: 50010, garantiaHasta: "2026-01-01" }, op)?.codigo).toBe("DATOS_ENTREGA");
     expect(revisarTransicion({ ...o, trabajos: [] }, "entregado", { kmSalida: 50010, garantiaHasta: "2027-02-01" }, op)?.codigo).toBe("DATOS_ENTREGA");
-    expect(revisarTransicion(o, "entregado", { kmSalida: 50010, garantiaHasta: "2027-02-01" }, op)).toBeNull();
+    expect(revisarTransicion(o, "entregado", { kmSalida: 50010, garantiaHasta: "2027-02-01" }, op)?.codigo).toBe("DATOS_ENTREGA"); // falta el combustible
+    expect(revisarTransicion(o, "entregado", { kmSalida: 50010, nivelCombustibleSalida: 0.3, garantiaHasta: "2027-02-01" }, op)?.codigo).toBe("DATOS_ENTREGA"); // no es 1/8
+    expect(revisarTransicion(o, "entregado", { kmSalida: 50010, nivelCombustibleSalida: 0.625, garantiaHasta: "2027-02-01" }, op)).toBeNull();
   });
   it("una orden cerrada solo la reabre el administrador", () => {
     const o = { ...base, estado: "entregado" as const, presupuestoEstado: "aprobado" as const };
@@ -67,7 +69,7 @@ describe("Flujo demo: acta → presupuesto → aprobación del cliente → entre
     expect(() => cambiarEstadoDemo(b, r.ordenId, "en_prueba", {}, u)).toThrow(/NO autorizó/);
     cambiarEstadoDemo(b, r.ordenId, "en_prueba", { pruebaSinConducir: "Prueba estática en elevador" }, u);
     cambiarEstadoDemo(b, r.ordenId, "listo", {}, u);
-    cambiarEstadoDemo(b, r.ordenId, "entregado", { kmSalida: 54312, garantiaHasta: "2099-01-01" }, u);
+    cambiarEstadoDemo(b, r.ordenId, "entregado", { kmSalida: 54312, nivelCombustibleSalida: 0.5, garantiaHasta: "2099-01-01" }, u);
     pasos = pasosOrden(b, ordenDeSolicitud(b, s.id));
     expect(pasos.every((p) => p.hecho)).toBe(true);
     const rec = b.recordatorios.filter((x) => x.vehiculoId === s.vehiculoId && x.estado === "pendiente" && x.servicio === "Cambio de líquido de frenos");

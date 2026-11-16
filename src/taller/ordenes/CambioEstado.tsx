@@ -3,9 +3,10 @@ import { apiTaller } from "../datos/api";
 import { ErrorTaller, type OrdenTaller } from "../datos/tipos";
 import { usePanel } from "../contexto";
 import { Dialogo } from "../ui";
-import { datosRequeridos, NOMBRE_ESTADO, revisarTransicion, type DatosTransicion, type EstadoOrden, type Trabajo } from "../util/reglasOrden";
+import { datosRequeridos, NOMBRE_ESTADO, nombreCombustible, revisarTransicion, type DatosTransicion, type EstadoOrden, type Trabajo } from "../util/reglasOrden";
 import EditorTrabajos from "./EditorTrabajos";
-import { Boton, Campo } from "../../compartido/ui/base";
+import MedidorCombustible from "../recepcion/MedidorCombustible";
+import { Boton, Campo, Grupo } from "../../compartido/ui/base";
 import { hoyBogota, sumarDias } from "../../compartido/util/fechas";
 
 export const GARANTIA_DIAS = 90; // EDITAR: garantía por defecto que ofrece el taller
@@ -44,10 +45,10 @@ export function useCambioEstado(alTerminar: (o: OrdenTaller, destino: EstadoOrde
       return;
     }
     // Si el bloqueo es de presupuesto, ningún dato extra lo resuelve: se explica de una vez.
-    const b = revisarTransicion(reglas, destino, { pruebaSinConducir: "xxxxx", kmSalida: Number.MAX_SAFE_INTEGER, garantiaHasta: "9999-12-31", trabajos: [{ descripcion: "x", tipo: "correctivo" }] }, { esAdmin: usuario.rol === "admin", hoy: hoyBogota() });
+    const b = revisarTransicion(reglas, destino, { pruebaSinConducir: "xxxxx", kmSalida: Number.MAX_SAFE_INTEGER, nivelCombustibleSalida: 1, garantiaHasta: "9999-12-31", trabajos: [{ descripcion: "x", tipo: "correctivo" }] }, { esAdmin: usuario.rol === "admin", hoy: hoyBogota() });
     if (b) { setBloqueo({ o, mensaje: b.mensaje }); return; }
     setError("");
-    setD(req === "entrega" ? { kmSalida: o.kmIngreso, garantiaHasta: sumarDias(hoyBogota(), GARANTIA_DIAS), trabajos: o.trabajos } : { modoPrueba: "sin" });
+    setD(req === "entrega" ? { kmSalida: o.kmIngreso, nivelCombustibleSalida: null, garantiaHasta: sumarDias(hoyBogota(), GARANTIA_DIAS), trabajos: o.trabajos } : { modoPrueba: "sin" });
     setPendiente({ o, destino });
   }
 
@@ -91,6 +92,9 @@ export function useCambioEstado(alTerminar: (o: OrdenTaller, destino: EstadoOrde
                 <input id="garantia" type="date" className="campo" min={hoyBogota()} value={d.garantiaHasta ?? ""} onChange={(e) => setD({ ...d, garantiaHasta: e.target.value })} />
               </Campo>
             </div>
+            <Grupo titulo={`¿Con cuánto combustible se entrega? (ingresó con ${pendiente.o.nivelCombustibleIngreso == null ? "—" : nombreCombustible(pendiente.o.nivelCombustibleIngreso)})`}>
+              <MedidorCombustible valor={d.nivelCombustibleSalida ?? null} onCambio={(v) => setD({ ...d, nivelCombustibleSalida: v })} />
+            </Grupo>
             <p className="mb-1 font-bold">Trabajos realizados</p>
             <EditorTrabajos trabajos={d.trabajos ?? []} onCambio={(t: Trabajo[]) => setD({ ...d, trabajos: t })} />
           </>

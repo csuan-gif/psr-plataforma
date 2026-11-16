@@ -95,6 +95,7 @@ test("cliente → bandeja en vivo → acta → orden → entrega → recordatori
   await detalle.getByRole("button", { name: /^Entregado →/ }).click();
   const entrega = taller.getByRole("dialog", { name: /Entregado/ });
   await entrega.getByLabel(/Km de salida/).fill("1012");
+  await entrega.getByRole("button", { name: "Lleno" }).click();
   await entrega.getByRole("button", { name: "+ Agregar trabajo" }).click();
   await entrega.getByLabel("Descripción del trabajo").fill("Cambio de líquido de frenos y purga");
   await entrega.getByLabel("Tipo").selectOption("preventivo");

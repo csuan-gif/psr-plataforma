@@ -191,6 +191,8 @@ export interface OrdenTaller {
   autorizaPruebaRuta: boolean;
   kmIngreso: number | null;
   kmSalida: number | null;
+  nivelCombustibleIngreso: number | null;
+  nivelCombustibleSalida: number | null;
   garantiaHasta: string | null;
   fechaEntrega: string | null;
   color: Color | null; // semáforo de la solicitud original (interno)

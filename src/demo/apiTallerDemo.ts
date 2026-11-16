@@ -276,6 +276,7 @@ export const apiTallerDemo: ApiTaller = {
         presupuesto: { total: o.presupuestoTotal, estado: o.presupuestoEstado, enviadoEn: o.presupuestoEnviadoEn, aprobadoPor: o.presupuestoAprobadoPor },
         autorizaPresupuestoPrevio: r.autorizaPresupuestoPrevio, autorizaPruebaRuta: r.autorizaPruebaRuta, kmIngreso: r.kmIngreso,
         kmSalida: o.kmSalida, garantiaHasta: o.garantiaHasta, fechaEntrega: o.fechaEntrega,
+        nivelCombustibleIngreso: r.nivelCombustible, nivelCombustibleSalida: o.nivelCombustibleSalida ?? null,
         color: s ? b.triage.find((x) => x.solicitudId === s.id)?.final ?? null : null,
       };
     });
