@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#b3121f"/>
+  <g fill="#fff">
+    <path d="M96 300l40-86c9-19 28-31 49-31h142c21 0 40 12 49 31l40 86v70h-48a40 40 0 0 1-80 0H224a40 40 0 0 1-80 0H96z"/>
+  </g>
+  <g fill="#b3121f">
+    <path d="M150 292l28-60c4-8 12-13 21-13h114c9 0 17 5 21 13l28 60z"/>
+    <circle cx="184" cy="370" r="18"/><circle cx="328" cy="370" r="18"/>
+  </g>
+  <text x="256" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="84" fill="#fff" letter-spacing="6">PSR</text>
+</svg>

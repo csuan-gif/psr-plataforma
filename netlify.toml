@@ -1,0 +1,8 @@
+# Publicación gratuita en Netlify. Las cabeceras de seguridad y la redirección de la
+# app (todas las rutas → index.html) se generan en dist/_headers y dist/_redirects al compilar.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

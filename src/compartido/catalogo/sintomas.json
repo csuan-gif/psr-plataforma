@@ -1,0 +1,96 @@
+{
+  "_nota": "Catálogo PÚBLICO de zonas y síntomas en lenguaje del cliente. NO incluye colores ni prioridades: esos viven solo en el servidor. En producción el admin lo edita en la tabla 'sintomas'; este archivo es la semilla y el respaldo sin conexión.",
+  "zonas": [
+    { "id": "motor", "nombre": "Motor", "ayuda": "Bajo el capó" },
+    { "id": "refrigeracion", "nombre": "Refrigeración", "ayuda": "Radiador, temperatura" },
+    { "id": "frenos", "nombre": "Frenos", "ayuda": "Pedal, pastillas, discos" },
+    { "id": "direccion", "nombre": "Dirección y suspensión", "ayuda": "Volante, amortiguadores" },
+    { "id": "llantas", "nombre": "Llantas", "ayuda": "Ruedas y neumáticos" },
+    { "id": "transmision", "nombre": "Transmisión y embrague", "ayuda": "Cambios, caja" },
+    { "id": "escape", "nombre": "Escape (exosto)", "ayuda": "Tubo de atrás" },
+    { "id": "electrico", "nombre": "Eléctrico y tablero", "ayuda": "Luces, batería, testigos" },
+    { "id": "aire", "nombre": "Aire acondicionado e interior", "ayuda": "Cabina" },
+    { "id": "carroceria", "nombre": "Carrocería y pintura", "ayuda": "Latas, golpes, rayones" },
+    { "id": "general", "nombre": "Mantenimiento o cotización", "ayuda": "Revisión de rutina, precios, dudas" },
+    { "id": "nose", "nombre": "No sé", "ayuda": "Te ayudamos a describirlo" }
+  ],
+  "sintomas": [
+    { "id": "frenos.chilla", "zona": "frenos", "etiqueta": "Chilla o chirría al frenar" },
+    { "id": "frenos.pedal_blando", "zona": "frenos", "etiqueta": "El pedal se siente blando o se hunde" },
+    { "id": "frenos.vibra", "zona": "frenos", "etiqueta": "Vibra al frenar" },
+    { "id": "frenos.se_va_lado", "zona": "frenos", "etiqueta": "Al frenar se va hacia un lado" },
+    { "id": "frenos.testigo", "zona": "frenos", "etiqueta": "Se prendió la luz (testigo) de frenos" },
+    { "id": "frenos.ruido_metalico", "zona": "frenos", "etiqueta": "Suena a metal contra metal al frenar" },
+    { "id": "frenos.olor_quemado", "zona": "frenos", "etiqueta": "Huele a quemado cerca de las ruedas" },
+
+    { "id": "direccion.volante_duro", "zona": "direccion", "etiqueta": "El volante se puso duro de repente" },
+    { "id": "direccion.no_responde", "zona": "direccion", "etiqueta": "Siento que la dirección falla o no responde" },
+    { "id": "direccion.vibra_velocidad", "zona": "direccion", "etiqueta": "El volante vibra cuando voy rápido" },
+    { "id": "direccion.golpes_huecos", "zona": "direccion", "etiqueta": "Suena o golpea al pasar huecos" },
+    { "id": "direccion.se_va_lado", "zona": "direccion", "etiqueta": "El carro se va hacia un lado" },
+    { "id": "direccion.ruido_girar", "zona": "direccion", "etiqueta": "Hace ruido al girar" },
+    { "id": "direccion.ruido_metalico", "zona": "direccion", "etiqueta": "Suena fuerte a metal al girar" },
+    { "id": "direccion.alineacion", "zona": "direccion", "etiqueta": "Quiero alineación y balanceo" },
+
+    { "id": "motor.no_enciende", "zona": "motor", "etiqueta": "No enciende" },
+    { "id": "motor.se_apaga_marcha", "zona": "motor", "etiqueta": "Se apaga mientras voy andando" },
+    { "id": "motor.humo", "zona": "motor", "etiqueta": "Sale humo del motor o del capó" },
+    { "id": "motor.pierde_fuerza", "zona": "motor", "etiqueta": "Pierde fuerza o jalonea" },
+    { "id": "motor.check_engine", "zona": "motor", "etiqueta": "Se prendió la luz amarilla del motor y anda normal" },
+    { "id": "motor.testigo_aceite", "zona": "motor", "etiqueta": "Se prendió la luz roja del aceite" },
+    { "id": "motor.ruido", "zona": "motor", "etiqueta": "Ruido o golpeteo en el motor" },
+    { "id": "motor.gasta_aceite", "zona": "motor", "etiqueta": "Gasta aceite" },
+    { "id": "motor.olor_gasolina", "zona": "motor", "etiqueta": "Huele fuerte a gasolina" },
+    { "id": "motor.fuga_abundante", "zona": "motor", "etiqueta": "Bota mucho líquido (deja charco)" },
+    { "id": "motor.consumo_alto", "zona": "motor", "etiqueta": "Gasta más combustible de lo normal" },
+    { "id": "motor.cambio_aceite", "zona": "motor", "etiqueta": "Quiero cambio de aceite y filtros" },
+
+    { "id": "refrigeracion.temp_alta", "zona": "refrigeracion", "etiqueta": "La temperatura sube o se recalienta" },
+    { "id": "refrigeracion.pierde_refrigerante", "zona": "refrigeracion", "etiqueta": "Pierde refrigerante (agua del radiador)" },
+    { "id": "refrigeracion.ventilador", "zona": "refrigeracion", "etiqueta": "El ventilador no prende" },
+
+    { "id": "electrico.testigo", "zona": "electrico", "etiqueta": "Se prendió una luz en el tablero y el carro anda normal" },
+    { "id": "electrico.bateria", "zona": "electrico", "etiqueta": "La batería se descarga" },
+    { "id": "electrico.luces", "zona": "electrico", "etiqueta": "Las luces fallan" },
+    { "id": "electrico.vidrios", "zona": "electrico", "etiqueta": "Los vidrios eléctricos fallan" },
+    { "id": "electrico.tablero", "zona": "electrico", "etiqueta": "El tablero falla o se apaga" },
+    { "id": "electrico.arranque", "zona": "electrico", "etiqueta": "Le cuesta arrancar" },
+    { "id": "electrico.intermitente", "zona": "electrico", "etiqueta": "Falla a veces sí y a veces no" },
+    { "id": "electrico.humo_chispas", "zona": "electrico", "etiqueta": "Sale humo o chispas de cables o del tablero" },
+
+    { "id": "transmision.cambios_duros", "zona": "transmision", "etiqueta": "Los cambios entran duro" },
+    { "id": "transmision.patina", "zona": "transmision", "etiqueta": "Acelero y no avanza bien (patina)" },
+    { "id": "transmision.ruido_cambios", "zona": "transmision", "etiqueta": "Suena al hacer los cambios" },
+    { "id": "transmision.pedal_embrague", "zona": "transmision", "etiqueta": "El pedal del embrague está alto o duro" },
+
+    { "id": "escape.ruido", "zona": "escape", "etiqueta": "El exosto suena muy fuerte" },
+    { "id": "escape.humo", "zona": "escape", "etiqueta": "Bota humo por el exosto" },
+    { "id": "escape.olor", "zona": "escape", "etiqueta": "Huele raro el exosto" },
+    { "id": "escape.gases_cabina", "zona": "escape", "etiqueta": "Huele a gases del exosto dentro del carro" },
+
+    { "id": "llantas.desgaste", "zona": "llantas", "etiqueta": "Se gastan disparejo" },
+    { "id": "llantas.pinchazo", "zona": "llantas", "etiqueta": "Pinchazo o pierde aire" },
+    { "id": "llantas.vibracion", "zona": "llantas", "etiqueta": "El carro vibra" },
+
+    { "id": "aire.no_enfria", "zona": "aire", "etiqueta": "El aire no enfría" },
+    { "id": "aire.mal_olor", "zona": "aire", "etiqueta": "El aire huele mal" },
+    { "id": "aire.ruido", "zona": "aire", "etiqueta": "El aire hace ruido" },
+
+    { "id": "carroceria.choque", "zona": "carroceria", "etiqueta": "Tuve un choque reciente" },
+    { "id": "carroceria.rayon", "zona": "carroceria", "etiqueta": "Tiene un rayón" },
+    { "id": "carroceria.golpe", "zona": "carroceria", "etiqueta": "Tiene un golpe o abolladura" },
+    { "id": "carroceria.pintura", "zona": "carroceria", "etiqueta": "La pintura se descascara o hay óxido" },
+
+    { "id": "nose.frenos_direccion", "zona": "nose", "etiqueta": "Siento que los frenos o la dirección fallan" },
+    { "id": "nose.humo", "zona": "nose", "etiqueta": "Sale humo" },
+    { "id": "nose.recalienta", "zona": "nose", "etiqueta": "Se recalienta" },
+    { "id": "nose.ruido", "zona": "nose", "etiqueta": "Suena raro" },
+    { "id": "nose.vibra", "zona": "nose", "etiqueta": "Vibra" },
+    { "id": "nose.testigo", "zona": "nose", "etiqueta": "Se prendió una luz en el tablero" },
+    { "id": "nose.intermitente", "zona": "nose", "etiqueta": "Falla a veces sí y a veces no" },
+
+    { "id": "general.mantenimiento", "zona": "general", "etiqueta": "Mantenimiento preventivo o revisión de rutina" },
+    { "id": "general.cotizacion", "zona": "general", "etiqueta": "Quiero una cotización" },
+    { "id": "general.duda", "zona": "general", "etiqueta": "Tengo una duda general" }
+  ]
+}

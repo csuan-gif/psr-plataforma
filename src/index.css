@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* Identidad PSR. // EDITAR el color de marca con el del logo del taller. */
+:root {
+  --fondo: #f5f6f8;
+  --superficie: #ffffff;
+  --texto: #14181d;
+  --suave: #4c5663;
+  --borde: #d3d9e0;
+  --marca: #b3121f;
+  --marca-hover: #900d18;
+  --marca-suave: #fdecee;
+  --sobre-marca: #ffffff;
+  --aviso: #7a4f00;
+  --aviso-fondo: #fff3d1;
+  --ok: #1b6535;
+  --ok-fondo: #e2f3e7;
+  --foco: #1f5fd1;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --fondo: #0e1115; --superficie: #171b21; --texto: #eef1f4; --suave: #a8b2bd; --borde: #2d343d;
+    --marca: #ff6b74; --marca-hover: #ff8a91; --marca-suave: #3a1519; --sobre-marca: #1a0306;
+    --aviso: #ffd27a; --aviso-fondo: #33270a; --ok: #84dba2; --ok-fondo: #10301c; --foco: #7aa7ff;
+    color-scheme: dark;
+  }
+}
+:root[data-tema="oscuro"] {
+  --fondo: #0e1115; --superficie: #171b21; --texto: #eef1f4; --suave: #a8b2bd; --borde: #2d343d;
+  --marca: #ff6b74; --marca-hover: #ff8a91; --marca-suave: #3a1519; --sobre-marca: #1a0306;
+  --aviso: #ffd27a; --aviso-fondo: #33270a; --ok: #84dba2; --ok-fondo: #10301c; --foco: #7aa7ff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-superficie: var(--superficie);
+  --color-texto: var(--texto);
+  --color-suave: var(--suave);
+  --color-borde: var(--borde);
+  --color-marca: var(--marca);
+  --color-marca-hover: var(--marca-hover);
+  --color-marca-suave: var(--marca-suave);
+  --color-sobre-marca: var(--sobre-marca);
+  --color-aviso: var(--aviso);
+  --color-aviso-fondo: var(--aviso-fondo);
+  --color-ok: var(--ok);
+  --color-ok-fondo: var(--ok-fondo);
+  --font-sans: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+body { background: var(--fondo); color: var(--texto); font-family: var(--font-sans); line-height: 1.5; margin: 0; }
+:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; border-radius: 6px; }
+input, select, textarea, button { font: inherit; }
+input, select, textarea { font-size: 1rem; }
+
+/* En la capa de componentes para que las utilidades (min-h-28, etc.) puedan ajustarla. */
+@layer components {
+  .campo {
+    width: 100%; min-height: 48px; padding: 0.6rem 0.8rem; border-radius: 12px;
+    border: 1.5px solid var(--borde); background: var(--superficie); color: var(--texto);
+  }
+  .campo:focus { border-color: var(--foco); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--foco) 25%, transparent); }
+}
+
+/* Mapa del vehículo */
+.zona { cursor: pointer; transition: fill .18s ease, stroke .18s ease, transform .18s ease; fill: color-mix(in srgb, var(--superficie) 70%, var(--borde)); stroke: var(--suave); stroke-width: 1.5; }
+.zona:hover { fill: var(--marca-suave); }
+g[aria-pressed="true"] > .zona { fill: var(--marca); stroke: var(--marca-hover); }
+g[aria-pressed="true"] > .zona:hover { fill: var(--marca-hover); }
+.zona-txt { pointer-events: none; font-size: 11px; font-weight: 700; fill: var(--texto); text-anchor: middle; dominant-baseline: middle; }
+g[aria-pressed="true"] .zona-txt { fill: var(--sobre-marca); }
+g.grupo-zona:focus, g.grupo-zona:focus-visible { outline: none; }
+g.grupo-zona:focus-visible .zona { stroke: var(--foco); stroke-width: 3; }
+
+@keyframes entrar { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.entrar { animation: entrar .25s ease both; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Impresión del cartel con QR: solo se imprime el cartel. */
+@media print {
+  body * { visibility: hidden !important; }
+  #cartel-qr, #cartel-qr * { visibility: visible !important; }
+  #cartel-qr { position: absolute; inset: 0 auto auto 0; width: 100%; max-width: none; border-width: 6px; }
+  header, nav { display: none !important; }
+}

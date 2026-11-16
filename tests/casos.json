@@ -1,0 +1,41 @@
+{
+  "_nota": "Casos C1 a C10 del informe 1.5 (Tabla 22) tal como los llenaría un cliente. Los usan las pruebas del motor demo (Vitest) y del motor del servidor (SQL), para que ambos den el mismo color.",
+  "casos": [
+    { "id": "C1", "texto": "Mantenimiento preventivo a los 40.000 km; el vehículo se puede movilizar.", "esperado": "verde",
+      "entrada": { "zonas": ["general"], "sintomas": ["general.mantenimiento"], "descripcion": "Mantenimiento de los 40.000 km", "movilidad": "si" } },
+    { "id": "C2", "texto": "Cotización de pintura para un guardabarros rayado.", "esperado": "verde",
+      "entrada": { "zonas": ["carroceria"], "sintomas": ["carroceria.rayon", "general.cotizacion"], "descripcion": "Cotización de pintura para el guardabarros rayado", "movilidad": "si" } },
+    { "id": "C3", "texto": "Cambio de aceite y filtros.", "esperado": "verde",
+      "entrada": { "zonas": ["motor"], "sintomas": ["motor.cambio_aceite"], "descripcion": "Cambio de aceite y filtros", "movilidad": "si" } },
+    { "id": "C4", "texto": "Chillido al frenar desde hace tres días; se puede movilizar.", "esperado": "amarillo",
+      "entrada": { "zonas": ["frenos"], "sintomas": ["frenos.chilla"], "descripcion": "Chilla al frenar desde hace tres días", "movilidad": "si" } },
+    { "id": "C5", "texto": "Luz encendida en el tablero; el vehículo anda normal.", "esperado": "amarillo",
+      "entrada": { "zonas": ["electrico"], "sintomas": ["electrico.testigo"], "descripcion": "Se encendió una luz en el tablero, el carro anda normal", "movilidad": "si" } },
+    { "id": "C6", "texto": "El volante vibra a más de 80 km/h.", "esperado": "amarillo",
+      "entrada": { "zonas": ["direccion"], "sintomas": ["direccion.vibra_velocidad"], "descripcion": "El volante vibra a más de 80 km/h", "movilidad": "si" } },
+    { "id": "C7", "texto": "El vehículo no enciende y no se puede movilizar.", "esperado": "rojo",
+      "entrada": { "zonas": ["motor"], "sintomas": ["motor.no_enciende"], "descripcion": "No enciende", "movilidad": "no" } },
+    { "id": "C8", "texto": "Sale humo del motor y la temperatura está alta.", "esperado": "rojo",
+      "entrada": { "zonas": ["motor", "refrigeracion"], "sintomas": ["motor.humo", "refrigeracion.temp_alta"], "descripcion": "", "movilidad": "nose" } },
+    { "id": "C9", "texto": "El pedal del freno se siente blando y se hunde.", "esperado": "rojo",
+      "entrada": { "zonas": ["frenos"], "sintomas": ["frenos.pedal_blando"], "descripcion": "", "movilidad": "nose" } },
+    { "id": "C10", "texto": "Fallas eléctricas intermitentes en luces y vidrios.", "esperado": "amarillo",
+      "entrada": { "zonas": ["electrico"], "sintomas": ["electrico.intermitente", "electrico.luces", "electrico.vidrios"], "descripcion": "Fallas intermitentes en luces y vidrios", "movilidad": "si" } }
+  ],
+  "extra": [
+    { "id": "X1", "texto": "Rojo solo por descripción: humo y recalentamiento, sin marcar síntomas.", "esperado": "rojo",
+      "entrada": { "zonas": ["nose"], "sintomas": [], "descripcion": "Está saliendo humo y se recalentó", "movilidad": "si" } },
+    { "id": "X2", "texto": "Rojo solo por descripción: pedal blando, con tildes y mayúsculas.", "esperado": "rojo",
+      "entrada": { "zonas": ["frenos"], "sintomas": [], "descripcion": "El PEDAL BLANDO, se húnde", "movilidad": "si" } },
+    { "id": "X3", "texto": "No está seguro de poder movilizarse y la zona es dirección.", "esperado": "rojo",
+      "entrada": { "zonas": ["direccion"], "sintomas": ["direccion.se_va_lado"], "descripcion": "", "movilidad": "nose" } },
+    { "id": "X4", "texto": "No puede movilizarse sin más datos.", "esperado": "rojo",
+      "entrada": { "zonas": ["nose"], "sintomas": [], "descripcion": "", "movilidad": "no" } },
+    { "id": "X5", "texto": "Gana el más grave: rayón (verde) + testigo de freno (rojo).", "esperado": "rojo",
+      "entrada": { "zonas": ["carroceria", "frenos"], "sintomas": ["carroceria.rayon", "frenos.testigo"], "descripcion": "", "movilidad": "si" } },
+    { "id": "X6", "texto": "No sabe la zona y no marca nada: queda en verde para revisión del dueño.", "esperado": "verde",
+      "entrada": { "zonas": ["nose"], "sintomas": [], "descripcion": "Quiero que lo revisen", "movilidad": "si" } },
+    { "id": "X7", "texto": "Check engine con el carro andando normal.", "esperado": "amarillo",
+      "entrada": { "zonas": ["motor"], "sintomas": ["motor.check_engine"], "descripcion": "", "movilidad": "si" } }
+  ]
+}
